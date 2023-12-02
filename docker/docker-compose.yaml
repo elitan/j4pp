@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  db:
+    container_name: nyheter_db
+    image: ankane/pgvector:v0.5.1
+    restart: always
+    environment:
+      TZ: "Europe/Stockholm" ## change to your timezone
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    env_file:
+      - ../web/.env
+
+  web:
+    container_name: nyheter_web
+    restart: always
+    build:
+      context: ../web
+    depends_on:
+      - "db"
+    env_file:
+      - ../web/.env
+    ports:
+      - 8001:3000
