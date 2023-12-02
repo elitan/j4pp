@@ -1,5 +1,7 @@
 # j4pp
 
+> Pronounced "japp" (like "yap"), which means "yes" in Swedish.
+
 Get your app started fast.
 
 - Docker
