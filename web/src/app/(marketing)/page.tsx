@@ -1,7 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { Home } from "../_components/Home";
 import { redirect } from "next/navigation";
-import { LandingLayout } from "../_components/LandingLayout";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
