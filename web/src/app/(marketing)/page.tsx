@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs";
-import { Home } from "../_components/Home";
+import { Home } from "@/components/Home";
 import { redirect } from "next/navigation";
 import { type Metadata } from "next";
 
