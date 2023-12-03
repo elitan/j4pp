@@ -1,24 +1,16 @@
-import { auth } from "@clerk/nextjs";
-import { SignIn, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+import { LandingLayout } from "./LandingLayout";
 
 export async function Home() {
-  const { userId }: { userId: string | null } = auth();
-
   return (
-    <div>
-      <h1>Home</h1>
+    <LandingLayout>
       <div>
-        SSR website
-        {userId ? (
-          <div>
-            <UserButton />
-          </div>
-        ) : (
-          <div>
-            <SignIn />
-          </div>
-        )}
+        <h1>Home</h1>
+        <div>feature!</div>
+        <div>
+          <Link href="/login">Sign In</Link>
+        </div>
       </div>
-    </div>
+    </LandingLayout>
   );
 }
