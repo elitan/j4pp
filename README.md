@@ -9,13 +9,13 @@
 
 ### Features
 
-- 🐳 Docker
-- 🐘 Postgres
-- 🌍 Atlas
-- 🧙‍♂️ TypeScript
-- ⚛️ Next.js (App Router)
-- 📡 tRPC
-- 💾 Kysely
-- 💅 TailwindCSS
-- 🔒 Clerk
-- 💰 Stripe
+- 🐳 **Docker:** Virtualization
+- 🐘 **Postgres:** Database
+- 🌍 **Atlas:** Declerative database migrations
+- 🧙‍♂️ **TypeScript:** JavaScript with syntax for types
+- ⚛️ **Next.js:** React web framework (App router)
+- 📡 **tRPC:** End-to-end typesafe APIs
+- 💾 **Kysely:** Type-safe SQL Query Builder
+- 💅 **TailwindCSS:** Utility-first CSS framework
+- 🔒 **Clerk:** User management and authentication
+- 💰 **Stripe:** Payments
