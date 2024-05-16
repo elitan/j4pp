@@ -2,7 +2,7 @@ import "server-only";
 import { CamelCasePlugin, Kysely, PostgresDialect } from "kysely";
 import { type DB } from "./kysely-types";
 import { Pool } from "pg";
-import { env } from "@/utils/env";
+import { env } from "./env";
 
 export const db = new Kysely<DB>({
   dialect: new PostgresDialect({

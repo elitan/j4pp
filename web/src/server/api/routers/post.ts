@@ -15,7 +15,7 @@ export const postRouter = createTRPCRouter({
   hello: protectedProcedure
     .input(z.object({ text: z.string() }))
     .query(({ input, ctx }) => {
-      console.log(ctx.auth?.userId);
+      console.log(ctx.auth.userId);
       return {
         greeting: `Hello ${input.text}`,
       };

@@ -1,12 +1,8 @@
-import { initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import {
-  getAuth,
-  type SignedInAuthObject,
-  type SignedOutAuthObject,
-} from "@clerk/nextjs/server";
+import { getAuth } from "@clerk/nextjs/server";
 import { type NextResponse, type NextRequest } from "next/server";
 import { type NodeHTTPCreateContextFnOptions } from "@trpc/server/adapters/node-http";
 
@@ -15,27 +11,15 @@ type CreateNextContextOptions = NodeHTTPCreateContextFnOptions<
   NextResponse
 >;
 
-type CreateContextOptions = {
-  auth: SignedInAuthObject | SignedOutAuthObject | null;
-  req: NextRequest | null;
-};
-
-export const createContextInner = async (opts: CreateContextOptions) => {
-  return {
-    auth: opts.auth,
-    req: opts.req,
-  };
-};
-
 export const createContext = async (
   opts: CreateNextContextOptions & { headers: Headers },
 ) => {
   const auth = getAuth(opts.req);
 
-  return await createContextInner({
+  return {
     auth,
     req: opts.req,
-  });
+  };
 };
 
 const t = initTRPC.context<typeof createContext>().create({
