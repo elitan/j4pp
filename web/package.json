@@ -11,22 +11,22 @@
     "codegen": "kysely-codegen --dialect postgres --camel-case --out-file ./src/utils/kysely-types.d.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.27.2",
+    "@clerk/nextjs": "^5.0.12",
     "@tanstack/react-query": "^4.36.1",
     "@trpc/client": "^10.43.6",
     "@trpc/react-query": "^10.43.6",
     "@trpc/server": "^10.43.6",
     "@types/pg": "^8.10.9",
-    "kysely": "^0.27.2",
-    "kysely-codegen": "^0.11.0",
-    "next": "^14.1.0",
-    "pg": "^8.11.3",
+    "kysely": "^0.27.3",
+    "kysely-codegen": "^0.15.0",
+    "next": "^14.2.3",
+    "pg": "^8.11.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "server-only": "^0.0.1",
-    "stripe": "^14.7.0",
+    "stripe": "^15.6.0",
     "superjson": "^2.2.1",
-    "zod": "^3.22.4"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.3",
