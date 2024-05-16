@@ -13,9 +13,9 @@
   "dependencies": {
     "@clerk/nextjs": "^5.0.12",
     "@tanstack/react-query": "^4.36.1",
-    "@trpc/client": "^10.43.6",
-    "@trpc/react-query": "^10.43.6",
-    "@trpc/server": "^10.43.6",
+    "@trpc/client": "^10.45.2",
+    "@trpc/react-query": "^10.45.2",
+    "@trpc/server": "^10.45.2",
     "@types/pg": "^8.10.9",
     "kysely": "^0.27.3",
     "kysely-codegen": "^0.15.0",
