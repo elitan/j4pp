@@ -2,9 +2,10 @@ import "@/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
-import { ClerkProvider, SignInButton, auth } from "@clerk/nextjs";
+import { ClerkProvider, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { TRPCReactProvider } from "@/trpc/react";
+import { auth } from "@clerk/nextjs/server";
 
 const inter = Inter({
   subsets: ["latin"],
