@@ -12,7 +12,7 @@ let post = {
 };
 
 export const postRouter = createTRPCRouter({
-  hello: protectedProcedure
+  hello: publicProcedure
     .input(z.object({ text: z.string() }))
     .query(({ input, ctx }) => {
       console.log(ctx.auth.userId);
@@ -21,7 +21,7 @@ export const postRouter = createTRPCRouter({
       };
     }),
 
-  create: publicProcedure
+  create: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ input }) => {
       // simulate a slow db call
