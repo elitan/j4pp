@@ -1,0 +1,23 @@
+{
+  "folders": [
+    {
+      "path": "apps/frontend",
+    },
+    {
+      "path": "apps/backend",
+    },
+    {
+      "path": "packages/db",
+    },
+    {
+      "path": "docker",
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/coverage": true,
+    },
+  },
+}
