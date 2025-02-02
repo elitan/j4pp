@@ -9,18 +9,19 @@
     }
   },
   "scripts": {
-    "dev": "tsx watch --clear-screen=false src/index.ts",
-    "build": "tsc",
+    "dev": "bun --watch --no-clear-screen src/index.ts",
+    "build": "bun build src/index.ts --outdir dist",
     "lint": "eslint src"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
+    "@hono/swagger-ui": "^0.5.0",
     "@trpc/server": "^10.45.2",
+    "bun": "^1.2.2",
     "hono": "^4.6.15",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
-    "tsx": "^4.7.1"
+    "@types/node": "^20.11.17"
   }
 }
