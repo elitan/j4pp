@@ -18,7 +18,7 @@ export function TRPCReactProvider(props: {
             (op.direction === 'down' && op.result instanceof Error),
         }),
         httpBatchLink({
-          url: 'http://localhost:3001/trpc',
+          url: '/api/trpc',
         }),
       ],
     }),
