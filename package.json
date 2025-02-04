@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "services/*"
   ],
   "scripts": {
     "dev": "concurrently -n \"frontend,backend\" -c \"cyan,green\" \"pnpm --filter frontend dev\" \"pnpm --filter backend dev\""

@@ -10,9 +10,9 @@ const app = new Hono()
 
 app.use('*', logger())
 
-app.use('/api/trpc/*', async (c) => {
+app.use('/trpc/*', async (c) => {
   const res = await fetchRequestHandler({
-    endpoint: '/api/trpc',
+    endpoint: '/trpc',
     req: c.req.raw,
     router: appRouter,
     createContext: () => ({}),
@@ -20,7 +20,7 @@ app.use('/api/trpc/*', async (c) => {
   return res
 })
 
-app.use('/api/test', async (c) => {
+app.use('/test', async (c) => {
   // for spawnSync, it is a property on the return value
   const { resourceUsage } = spawnSync([
     'bun',
