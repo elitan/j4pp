@@ -1,0 +1,10 @@
+{
+  "plugins": ["prettier-plugin-sql"],
+  "formatter": "sql-formatter",
+  "language": "postgresql",
+  "keywordCase": "lower",
+  "dataTypeCase": "lower",
+  "functionCase": "lower",
+  "identifierCase": "lower"
+}
+

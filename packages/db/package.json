@@ -1,0 +1,14 @@
+{
+  "name": "@j4/db",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "codegen": "kysely-codegen --dialect postgres --camel-case --out-file ./src/utils/kysely-types.d.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
