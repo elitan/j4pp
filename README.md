@@ -1,75 +1,61 @@
-<div align="center">
-  <h1>j4pp</h1>
-  <h3>Starter kit to build web apps</h3>
-</div>
+# j4pp
 
-<br />
+**Fast starter template optimized for rapid development and AI workflows.**
 
-> Pronounced "japp" (like "yap"), which means "yes" in Swedish.
+## Features
 
-### Features
+- **Type-safe from DB to frontend** - Database → tRPC → React with auto-generated types
+- **Declarative schema** - Atlas manages migrations from `db/schema.sql`
+- **Zero-config setup** - One command creates DB, applies schema, generates types
+- **Modern stack** - Next.js 15, tRPC, Kysely, TypeScript, Tailwind
 
-- 🐳 **Docker:** Virtualization
-- 🐘 **Postgres:** Database
-- 🌍 **Atlas:** Declerative database migrations
-- 🧙‍♂️ **TypeScript:** JavaScript with syntax for types
-- ⚛️ **Next.js:** React web framework (App router)
-- 📡 **tRPC:** End-to-end typesafe APIs
-- 💾 **Kysely:** Type-safe SQL Query Builder
-- 💅 **TailwindCSS:** Utility-first CSS framework
-- 🔒 **Clerk:** User management and authentication
-- 💰 **Stripe:** Payments
-
-## Getting Started
-
-1. **Setup the project** (creates database and applies schema):
-
-   ```bash
-   bun run setup
-   ```
-
-2. **Start development**:
-   ```bash
-   bun run dev
-   ```
-
-The setup command will:
-
-- 🎯 Create a new [Neon](https://neon.new/) PostgreSQL database
-- 🏗️ Apply the database schema from `db/schema.sql`
-- 📝 Generate TypeScript types with Kysely
-- ✅ Set up your `.env` file
-
-## Database Setup
-
-The database uses Kysely with PostgreSQL and Atlas for schema management.
-
-### Quick Start
+## Quick Start
 
 ```bash
-# Apply schema and generate types
-bun run db:setup
+# One command setup (creates Neon DB + applies schema + generates types)
+bun run setup
+
+# Start development
+bun run dev
 ```
 
-### Available Commands
+## Stack
+
+- **Database**: PostgreSQL (Neon)
+- **Schema**: Atlas (declarative migrations)
+- **Backend**: Next.js API routes + tRPC
+- **Frontend**: React 19 + Next.js 15
+- **Types**: Auto-generated with Kysely
+- **Auth**: Clerk
+
+## Type Flow
+
+```
+Database Schema (schema.sql)
+    ↓ Atlas applies
+PostgreSQL
+    ↓ Kysely generates
+TypeScript types
+    ↓ tRPC uses
+Type-safe API
+    ↓ React consumes
+Frontend components
+```
+
+## Development Commands
 
 ```bash
-bun run setup             # One-time setup: create database + apply schema
-bun run db:generate       # Generate TypeScript types from database
-bun run db:push           # Apply schema to local database
-bun run db:push:stage     # Apply schema to staging database
-bun run db:push:prod      # Apply schema to production database
-bun run db:setup          # Apply schema + generate types (local)
+bun run setup        # Full setup (DB + schema + types)
+bun run dev          # Start development server
+bun run db:setup     # Apply schema + generate types
+bun run db:push      # Apply schema to database
+bun run db:generate  # Generate types from database
 ```
 
-### Environment Variables
+## Database Changes
 
-- `DATABASE_URL` - Local/production database URL
-- `STAGING_DATABASE_URL` - Staging database URL
-- `PRODUCTION_DATABASE_URL` - Production database URL
+1. Edit `db/schema.sql`
+2. Run `bun run db:setup`
+3. Types are automatically updated across your app
 
-### Schema Management
-
-- Edit `db/schema.sql` to modify the database schema
-- Run `bun run db:setup` to apply changes and regenerate types
-- The camelCase plugin automatically converts `snake_case` columns to `camelCase` in TypeScript
+The setup is optimized for AI tools - types flow automatically and the declarative schema makes database changes predictable and safe.
