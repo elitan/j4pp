@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
+    "setup": "bun run scripts/setup.ts",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/bun": "^1.2.17",
     "@types/node": "^20",
     "@types/pg": "^8.15.4",
     "@types/react": "^19",

@@ -20,6 +20,26 @@
 - 🔒 **Clerk:** User management and authentication
 - 💰 **Stripe:** Payments
 
+## Getting Started
+
+1. **Setup the project** (creates database and applies schema):
+
+   ```bash
+   bun run setup
+   ```
+
+2. **Start development**:
+   ```bash
+   bun run dev
+   ```
+
+The setup command will:
+
+- 🎯 Create a new [Neon](https://neon.new/) PostgreSQL database
+- 🏗️ Apply the database schema from `db/schema.sql`
+- 📝 Generate TypeScript types with Kysely
+- ✅ Set up your `.env` file
+
 ## Database Setup
 
 The database uses Kysely with PostgreSQL and Atlas for schema management.
@@ -34,6 +54,7 @@ bun run db:setup
 ### Available Commands
 
 ```bash
+bun run setup             # One-time setup: create database + apply schema
 bun run db:generate       # Generate TypeScript types from database
 bun run db:push           # Apply schema to local database
 bun run db:push:stage     # Apply schema to staging database
