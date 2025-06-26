@@ -2,7 +2,29 @@ import { z } from 'zod';
 import { publicProcedure, protectedProcedure, router } from '../trpc';
 
 export const appRouter = router({
-  // Public procedure - anyone can call this
+  // Public getter - anyone can call this
+  getPublic: publicProcedure.query(() => {
+    return {
+      message: 'This is public data - anyone can see this!',
+      timestamp: new Date().toISOString(),
+    };
+  }),
+
+  // Protected getter - requires authentication
+  getProtected: protectedProcedure.query(async ({ ctx }) => {
+    return {
+      message: `This is private data for user: ${ctx.userId}`,
+      timestamp: new Date().toISOString(),
+      userData: {
+        userId: ctx.userId,
+        role: 'premium',
+        subscription: 'active',
+        lastLogin: new Date().toISOString(),
+      },
+    };
+  }),
+
+  // Legacy procedures (keeping for compatibility)
   hello: publicProcedure
     .input(
       z.object({
@@ -15,7 +37,6 @@ export const appRouter = router({
       };
     }),
 
-  // Protected procedure - requires authentication
   getProfile: protectedProcedure.query(async ({ ctx }) => {
     return {
       userId: ctx.userId,
@@ -24,7 +45,6 @@ export const appRouter = router({
     };
   }),
 
-  // Protected mutation example
   updateProfile: protectedProcedure
     .input(
       z.object({
