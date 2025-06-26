@@ -1,0 +1,6 @@
+{
+  "camelCase": true,
+  "dialect": "postgres",
+  "outFile": "./src/lib/db-types.ts",
+  "url": "env(DATABASE_URL)"
+}

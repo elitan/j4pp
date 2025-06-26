@@ -19,3 +19,36 @@
 - 💅 **TailwindCSS:** Utility-first CSS framework
 - 🔒 **Clerk:** User management and authentication
 - 💰 **Stripe:** Payments
+
+## Database Setup
+
+The database uses Kysely with PostgreSQL and Atlas for schema management.
+
+### Quick Start
+
+```bash
+# Apply schema and generate types
+bun run db:setup
+```
+
+### Available Commands
+
+```bash
+bun run db:generate       # Generate TypeScript types from database
+bun run db:push           # Apply schema to local database
+bun run db:push:stage     # Apply schema to staging database
+bun run db:push:prod      # Apply schema to production database
+bun run db:setup          # Apply schema + generate types (local)
+```
+
+### Environment Variables
+
+- `DATABASE_URL` - Local/production database URL
+- `STAGING_DATABASE_URL` - Staging database URL
+- `PRODUCTION_DATABASE_URL` - Production database URL
+
+### Schema Management
+
+- Edit `db/schema.sql` to modify the database schema
+- Run `bun run db:setup` to apply changes and regenerate types
+- The camelCase plugin automatically converts `snake_case` columns to `camelCase` in TypeScript
