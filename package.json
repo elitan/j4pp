@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.23.1",
     "@tanstack/react-query": "^5.81.2",
     "@trpc/client": "^11.4.2",
     "@trpc/next": "^11.4.2",
