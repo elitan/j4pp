@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- This repo uses `bun` as a package manager. So always use `bun`.
