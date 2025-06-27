@@ -81,11 +81,8 @@ export default function Home() {
 
               {protectedQuery.data && (
                 <div className='rounded border border-zinc-700 bg-zinc-800 p-3 font-mono text-sm'>
-                  <div className='text-zinc-200'>
-                    {protectedQuery.data.message}
-                  </div>
-                  <div className='mt-2 text-zinc-500'>
-                    Role: {protectedQuery.data.userData.role}
+                  <div className='whitespace-pre-wrap text-zinc-200'>
+                    {JSON.stringify(protectedQuery.data, null, 2)}
                   </div>
                 </div>
               )}
