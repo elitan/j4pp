@@ -5,7 +5,6 @@ import { TRPCProvider } from '@/components/providers';
 import {
   ClerkProvider,
   SignInButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
   UserButton,
@@ -22,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'tRPC + Clerk Next.js App',
-  description: 'A Next.js app with tRPC and Clerk authentication',
+  title: 'AI-first Starter Template',
+  description: '',
 };
 
 export default function RootLayout({

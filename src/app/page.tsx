@@ -18,7 +18,7 @@ export default function Home() {
             j4pp
           </h1>
           <p className='mb-2 text-xl text-zinc-300'>
-            Fast starter template optimized for rapid development
+            Fast starter template optimized for rapid AI-first development
           </p>
           <p className='text-sm text-zinc-500'>Type-safe from DB to frontend</p>
         </div>
@@ -102,7 +102,10 @@ export default function Home() {
 
         {/* Footer */}
         <div className='mt-16 text-center text-sm text-zinc-500'>
-          <p>Next.js 15 • tRPC • Kysely • TypeScript • Tailwind • Clerk</p>
+          <p>
+            Next.js 15 • tRPC • Kysely • TypeScript • Tailwind • Clerk •
+            Postgres • Cursor
+          </p>
         </div>
       </div>
     </div>
