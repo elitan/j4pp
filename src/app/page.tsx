@@ -1,13 +1,12 @@
 'use client';
 
 import { api } from '@/components/providers';
-import { SignedIn, SignedOut } from '@clerk/nextjs';
 
 export default function Home() {
   // tRPC queries
   const publicQuery = api.getPublic.useQuery();
   const protectedQuery = api.getProtected.useQuery(undefined, {
-    enabled: false, // Only enable when signed in
+    enabled: false, // triggered manually
   });
 
   return (
@@ -61,32 +60,30 @@ export default function Home() {
               Requires authentication via Clerk
             </p>
 
-            <SignedOut>
-              <div className='rounded border border-zinc-700 bg-zinc-800 p-3 text-sm text-zinc-500'>
-                Sign in to access protected data
+            <button
+              onClick={() => protectedQuery.refetch()}
+              className='mb-3 w-full rounded bg-white px-4 py-2 text-sm text-black transition-colors hover:bg-zinc-200'
+            >
+              Fetch Protected Data
+            </button>
+
+            {protectedQuery.isLoading && (
+              <div className='text-sm text-zinc-500'>Loading...</div>
+            )}
+
+            {protectedQuery.isError && (
+              <div className='text-sm text-zinc-500'>
+                Error: {protectedQuery.error.message}
               </div>
-            </SignedOut>
+            )}
 
-            <SignedIn>
-              <button
-                onClick={() => protectedQuery.refetch()}
-                className='mb-3 w-full rounded bg-white px-4 py-2 text-sm text-black transition-colors hover:bg-zinc-200'
-              >
-                Fetch Protected Data
-              </button>
-
-              {protectedQuery.isLoading && (
-                <div className='text-sm text-zinc-500'>Loading...</div>
-              )}
-
-              {protectedQuery.data && (
-                <div className='rounded border border-zinc-700 bg-zinc-800 p-3 font-mono text-sm'>
-                  <div className='whitespace-pre-wrap text-zinc-200'>
-                    {JSON.stringify(protectedQuery.data, null, 2)}
-                  </div>
+            {protectedQuery.data && (
+              <div className='rounded border border-zinc-700 bg-zinc-800 p-3 font-mono text-sm'>
+                <div className='whitespace-pre-wrap text-zinc-200'>
+                  {JSON.stringify(protectedQuery.data, null, 2)}
                 </div>
-              )}
-            </SignedIn>
+              </div>
+            )}
           </div>
         </div>
 
