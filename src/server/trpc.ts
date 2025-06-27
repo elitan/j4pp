@@ -36,7 +36,6 @@ export const protectedProcedure = t.procedure.use(async ({ ctx, next }) => {
     ctx: {
       ...ctx,
       auth: ctx.auth,
-      userId: ctx.auth.userId, // Now we know userId is not null
     },
   });
 });
