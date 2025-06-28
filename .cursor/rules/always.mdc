@@ -54,8 +54,36 @@ Frontend with full type safety
 **Process**:
 
 1. Edit the declarative schema in `db/schema.sql`
-2. Run `bun run db:setup` to apply changes and regenerate types
-3. Types automatically flow through the entire application
+2. **Check changes**: Run `bun run db:check` to preview what will be applied
+3. **Apply changes**: Run `bun run db:push` to apply the schema changes
+4. **Generate types**: Run `bun run db:generate` to regenerate TypeScript types
+5. Or use `bun run db:setup` to apply changes and regenerate types in one step
+
+**Two-Step Database Workflow**:
+
+```bash
+# Step 1: Check what will change (dry run)
+bun run db:check          # Local database
+bun run db:check:stage    # Staging database
+bun run db:check:prod     # Production database
+
+# Step 2: Apply the changes
+bun run db:push           # Local database
+bun run db:push:stage     # Staging database
+bun run db:push:prod      # Production database
+```
+
+**Advanced Workflow with Plans**:
+
+```bash
+# Create a migration plan
+bun run db:plan           # Creates plan file for local database
+bun run db:plan:stage     # Creates plan file for staging database
+bun run db:plan:prod      # Creates plan file for production database
+
+# Apply using the plan
+atlas schema apply --env local --plan path/to/generated/plan.hcl
+```
 
 **Example Schema**:
 
@@ -235,14 +263,22 @@ bun run setup
 # Development
 bun run dev
 
-# Database operations
-bun run db:setup     # Apply schema + generate types
-bun run db:push      # Apply schema to database
-bun run db:generate  # Generate types from database
+# Database operations - Two-step workflow
+bun run db:check          # Preview changes (dry run)
+bun run db:push           # Apply schema to database
+bun run db:generate       # Generate types from database
+bun run db:setup          # Apply schema + generate types (one step)
 
-# Environment-specific database pushes
-bun run db:push:stage
-bun run db:push:prod
+# Database planning (advanced workflow)
+bun run db:plan           # Create migration plan file
+bun run db:plan:stage     # Create staging migration plan
+bun run db:plan:prod      # Create production migration plan
+
+# Environment-specific database operations
+bun run db:check:stage    # Preview staging changes
+bun run db:check:prod     # Preview production changes
+bun run db:push:stage     # Apply to staging database
+bun run db:push:prod      # Apply to production database
 ```
 
 ## Environment Configuration
@@ -284,10 +320,13 @@ bun run db:push:prod
 ### Adding a New Database Table
 
 1. Add table definition to `db/schema.sql`
-2. Run `bun run db:setup`
-3. Use generated types in `src/lib/db-types.ts`
-4. Create tRPC procedures in `src/server/routers/_app.ts`
-5. Use in frontend components with `api.tableName.useQuery()`
+2. **Check changes**: Run `bun run db:check` to preview what will be applied
+3. **Apply changes**: Run `bun run db:push` to apply the schema changes
+4. **Generate types**: Run `bun run db:generate` to regenerate TypeScript types
+5. Or use `bun run db:setup` to apply changes and regenerate types in one step
+6. Use generated types in `src/lib/db-types.ts`
+7. Create tRPC procedures in `src/server/routers/_app.ts`
+8. Use in frontend components with `api.tableName.useQuery()`
 
 ### Adding Authentication to an Endpoint
 
@@ -322,7 +361,12 @@ bun run db:push:prod
 
 When working with this codebase as an AI assistant:
 
-1. **Database Changes**: Always modify `db/schema.sql` and run `bun run db:setup`
+1. **Database Changes**:
+   - Modify `db/schema.sql`
+   - Run `bun run db:check` to preview changes
+   - Run `bun run db:push` to apply changes
+   - Run `bun run db:generate` to regenerate types
+   - Or use `bun run db:setup` for the complete workflow
 2. **API Development**: Add procedures to `src/server/routers/_app.ts`
 3. **Frontend Development**: Create components in `src/components/` or pages in `src/app/`
 4. **Type Safety**: Leverage the existing type system - don't create manual types

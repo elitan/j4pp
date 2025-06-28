@@ -9,9 +9,15 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "kysely-codegen",
-    "db:push": "atlas schema apply --env local",
-    "db:push:stage": "atlas schema apply --env stage",
-    "db:push:prod": "atlas schema apply --env prod",
+    "db:check": "atlas schema apply --env local --dry-run",
+    "db:check:stage": "atlas schema apply --env stage --dry-run",
+    "db:check:prod": "atlas schema apply --env prod --dry-run",
+    "db:plan": "atlas schema plan --env local --save",
+    "db:plan:stage": "atlas schema plan --env stage --save",
+    "db:plan:prod": "atlas schema plan --env prod --save",
+    "db:push": "atlas schema apply --env local --auto-approve",
+    "db:push:stage": "atlas schema apply --env stage --auto-approve",
+    "db:push:prod": "atlas schema apply --env prod --auto-approve",
     "db:setup": "bun run db:push && bun run db:generate"
   },
   "dependencies": {
