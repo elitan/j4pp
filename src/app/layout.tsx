@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { TRPCProvider } from '@/components/providers';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ModeToggle } from '@/components/mode-toggle';
 import {
   ClerkProvider,
   SignInButton,
@@ -36,19 +38,27 @@ export default function RootLayout({
         cssLayerName: 'clerk',
       }}
     >
-      <html lang='en'>
+      <html lang='en' suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <header className='flex h-16 items-center justify-end gap-4 p-4'>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          <TRPCProvider>{children}</TRPCProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <header className='flex h-16 items-center justify-end gap-4 p-4'>
+              <ModeToggle />
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </header>
+            <TRPCProvider>{children}</TRPCProvider>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
