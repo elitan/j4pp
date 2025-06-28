@@ -20,7 +20,7 @@ async function setup() {
     console.log('✅ Database created successfully!');
 
     // Set up the database schema and generate types
-    console.log('🏗️  Applying database schema...');
+    console.log('🏗️  Applying database schema and generating types...');
     await $`bun run db:setup`;
     console.log('✅ Database schema applied and types generated!');
 
