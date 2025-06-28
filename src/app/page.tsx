@@ -1,6 +1,15 @@
 'use client';
 
 import { api } from '@/components/providers';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export default function Home() {
   // tRPC queries
@@ -10,101 +19,117 @@ export default function Home() {
   });
 
   return (
-    <div className='min-h-screen bg-black'>
-      <div className='mx-auto max-w-4xl px-6 py-24'>
+    <div className='bg-background min-h-screen'>
+      <div className='container mx-auto max-w-4xl px-6 py-24'>
         {/* Hero */}
         <div className='mb-16 text-center'>
-          <h1 className='mb-4 text-6xl font-bold tracking-tight text-white'>
+          <h1 className='text-foreground mb-4 text-6xl font-bold tracking-tight'>
             j4pp
           </h1>
-          <p className='mb-2 text-xl text-zinc-300'>
+          <p className='text-muted-foreground mb-2 text-xl'>
             Fast starter template optimized for rapid AI-first development
           </p>
-          <p className='text-sm text-zinc-500'>Type-safe from DB to frontend</p>
+          <p className='text-muted-foreground text-sm'>
+            Type-safe from DB to frontend
+          </p>
         </div>
 
         {/* tRPC Demo */}
         <div className='mb-16 grid gap-8 md:grid-cols-2'>
           {/* Public Data */}
-          <div className='rounded-lg border border-zinc-800 bg-zinc-900 p-6'>
-            <h3 className='mb-4 flex items-center gap-2 text-lg font-semibold text-white'>
-              <span className='h-2 w-2 rounded-full bg-green-500'></span>
-              Public Data
-            </h3>
-            <p className='mb-4 text-sm text-zinc-400'>
-              Anyone can access this endpoint
-            </p>
+          <Card>
+            <CardHeader>
+              <div className='flex items-center gap-2'>
+                <Badge variant='default' className='h-2 w-2 rounded-full p-0' />
+                <CardTitle>Public Data</CardTitle>
+              </div>
+              <CardDescription>Anyone can access this endpoint</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {publicQuery.isLoading && (
+                <div className='text-muted-foreground text-sm'>Loading...</div>
+              )}
 
-            {publicQuery.isLoading && (
-              <div className='text-sm text-zinc-500'>Loading...</div>
-            )}
-
-            {publicQuery.data && (
-              <div className='space-y-2'>
-                <div className='rounded border border-zinc-700 bg-zinc-800 p-3 font-mono text-sm'>
-                  <div className='text-zinc-200'>
-                    {publicQuery.data.message}
+              {publicQuery.data && (
+                <div className='space-y-2'>
+                  <div className='bg-muted rounded-md border p-3 font-mono text-sm'>
+                    <div className='text-foreground'>
+                      {publicQuery.data.message}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* Protected Data */}
-          <div className='rounded-lg border border-zinc-800 bg-zinc-900 p-6'>
-            <h3 className='mb-4 flex items-center gap-2 text-lg font-semibold text-white'>
-              <span className='h-2 w-2 rounded-full bg-red-500'></span>
-              Protected Data
-            </h3>
-            <p className='mb-4 text-sm text-zinc-400'>
-              Requires authentication via Clerk
-            </p>
-
-            <button
-              onClick={() => protectedQuery.refetch()}
-              className='mb-3 w-full rounded bg-white px-4 py-2 text-sm text-black transition-colors hover:bg-zinc-200'
-            >
-              Fetch Protected Data
-            </button>
-
-            {protectedQuery.isLoading && (
-              <div className='text-sm text-zinc-500'>Loading...</div>
-            )}
-
-            {protectedQuery.isError && (
-              <div className='text-sm text-zinc-500'>
-                Error: {protectedQuery.error.message}
+          <Card>
+            <CardHeader>
+              <div className='flex items-center gap-2'>
+                <Badge
+                  variant='destructive'
+                  className='h-2 w-2 rounded-full p-0'
+                />
+                <CardTitle>Protected Data</CardTitle>
               </div>
-            )}
+              <CardDescription>
+                Requires authentication via Clerk
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button
+                onClick={() => protectedQuery.refetch()}
+                className='mb-4 w-full'
+                variant='default'
+              >
+                Fetch Protected Data
+              </Button>
 
-            {protectedQuery.data && (
-              <div className='rounded border border-zinc-700 bg-zinc-800 p-3 font-mono text-sm'>
-                <div className='whitespace-pre-wrap text-zinc-200'>
-                  {JSON.stringify(protectedQuery.data, null, 2)}
+              {protectedQuery.isLoading && (
+                <div className='text-muted-foreground text-sm'>Loading...</div>
+              )}
+
+              {protectedQuery.isError && (
+                <div className='text-destructive text-sm'>
+                  Error: {protectedQuery.error.message}
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+
+              {protectedQuery.data && (
+                <div className='bg-muted rounded-md border p-3 font-mono text-sm'>
+                  <div className='text-foreground whitespace-pre-wrap'>
+                    {JSON.stringify(protectedQuery.data, null, 2)}
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
 
         {/* Quick Start */}
         <div className='text-center'>
-          <h2 className='mb-6 text-2xl font-bold text-white'>Quick Start</h2>
-          <div className='mx-auto max-w-2xl rounded-lg border border-zinc-800 bg-zinc-900 p-6 text-left font-mono text-sm text-white'>
-            <div className='text-zinc-400'>
-              # Setup database and generate types
-            </div>
-            <div className='mb-3 text-white'>bun run setup</div>
-            <div className='text-zinc-400'># Start development</div>
-            <div className='text-white'>bun run dev</div>
-          </div>
+          <h2 className='text-foreground mb-6 text-2xl font-bold'>
+            Quick Start
+          </h2>
+          <Card className='mx-auto max-w-2xl'>
+            <CardContent className='pt-6'>
+              <div className='text-left font-mono text-sm'>
+                <div className='text-muted-foreground'>
+                  # Setup database and generate types
+                </div>
+                <div className='text-foreground mb-3'>bun run setup</div>
+                <div className='text-muted-foreground'># Start development</div>
+                <div className='text-foreground'>bun run dev</div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Footer */}
-        <div className='mt-16 text-center text-sm text-zinc-500'>
+        <div className='text-muted-foreground mt-16 text-center text-sm'>
           <p>
             Next.js 15 • tRPC • Kysely • TypeScript • Tailwind • Clerk •
-            Postgres • Cursor
+            Postgres • Cursor • Bun • Shadcn/UI
           </p>
         </div>
       </div>
