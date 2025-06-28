@@ -1,6 +1,7 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import { getAuth } from '@clerk/nextjs/server';
 import type { NextRequest } from 'next/server';
+import { db } from '@/lib/db';
 
 // Define the context type
 interface CreateContextOptions {
@@ -14,6 +15,7 @@ export async function createTRPCContext(opts: CreateContextOptions) {
   return {
     auth,
     userId: auth.userId,
+    db,
   };
 }
 
