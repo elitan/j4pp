@@ -3,4 +3,6 @@ description:
 globs: 
 alwaysApply: false
 ---
-Run `cat .env` to see the DATABASE_URL and use `psql` to connect and interact with the postgres database.
+- Extract DATABASE_URL from .env file
+- Use psql to connect to the PostgreSQL database
+- If connection succeeds, proceed with database operations
