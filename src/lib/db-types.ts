@@ -9,11 +9,41 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
+export type Int8 = ColumnType<string, bigint | number | string, bigint | number | string>;
+
+export type Json = JsonValue;
+
+export type JsonArray = JsonValue[];
+
+export type JsonObject = {
+  [x: string]: JsonValue | undefined;
+};
+
+export type JsonPrimitive = boolean | number | string | null;
+
+export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
+
+export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+
+export interface Files {
+  createdAt: Generated<Timestamp | null>;
+  etag: string | null;
+  filename: string;
+  id: Generated<string>;
+  metadata: Json | null;
+  mimeType: string;
+  size: Int8;
+  status: Generated<string>;
+  updatedAt: Generated<Timestamp | null>;
+  updatedByUserId: number | null;
+}
+
 export interface Users {
   clerkUserId: string | null;
   id: Generated<number>;
 }
 
 export interface DB {
+  files: Files;
   users: Users;
 }

@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import { CamelCasePlugin, Kysely, PostgresDialect } from 'kysely';
 import { Pool } from 'pg';
 import type { DB } from './db-types';
@@ -9,7 +10,7 @@ const globalForDb = globalThis as unknown as {
 const createDatabase = (): Kysely<DB> => {
   const dialect = new PostgresDialect({
     pool: new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: env.DATABASE_URL,
     }),
   });
 
@@ -21,4 +22,4 @@ const createDatabase = (): Kysely<DB> => {
 
 export const db = globalForDb.db ?? createDatabase();
 
-if (process.env.NODE_ENV !== 'production') globalForDb.db = db;
+if (env.NODE_ENV !== 'production') globalForDb.db = db;

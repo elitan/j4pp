@@ -9,6 +9,16 @@
 - **Zero-config setup** - One command creates DB, applies schema, generates types
 - **Modern stack** - Next.js 15, tRPC, Kysely, TypeScript, Tailwind
 
+## Philosophy
+
+This template is built on a core belief: **modern development should be fast, type-safe, and AI-native.** Every tool in this stack was chosen to reduce boilerplate, eliminate entire classes of bugs, and create a seamless feedback loop from the database to the UI.
+
+-   **Kysely over Prisma/Drizzle:** We chose Kysely for its unparalleled type-safety and its lightweight, SQL-first approach. It doesn't try to abstract away SQL; it embraces it, giving you full control while ensuring your queries are 100% type-safe. This makes database interactions predictable and easy to debug.
+
+-   **tRPC over REST/GraphQL:** tRPC provides end-to-end type-safety without the need for code generation or schemas. Your API becomes as easy to consume as calling a function, with full autocompletion and type-checking from the backend to the frontend. This dramatically speeds up feature development.
+
+-   **Atlas for Declarative Migrations:** Managing database schemas should be simple. With Atlas, you define your desired schema in a single `schema.sql` file. Atlas intelligently figures out the migration plan, making schema changes trivial and predictable. This is especially powerful for AI-driven development, where an agent can safely propose and apply schema changes.
+
 ## Quick Start
 
 ```bash
