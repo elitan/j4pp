@@ -12,14 +12,14 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 // S3 Client configuration
 const s3Client = new S3Client({
+  endpoint: env.S3_ENDPOINT,
   region: env.S3_REGION,
   credentials: {
     accessKeyId: env.S3_ACCESS_KEY_ID,
     secretAccessKey: env.S3_SECRET_ACCESS_KEY,
   },
+  forcePathStyle: true, // Required for S3-compatible services like Cloudflare R2
 });
-
-const BUCKET_NAME = env.S3_BUCKET_NAME;
 
 export interface FileUpload {
   filename: string;
@@ -45,6 +45,7 @@ export async function uploadFile(upload: FileUpload) {
       mimeType: upload.mimeType,
       size: upload.size,
       status: 'uploading',
+      updatedByUserId: upload.userId,
     })
     .returningAll()
     .executeTakeFirst();
@@ -55,7 +56,7 @@ export async function uploadFile(upload: FileUpload) {
 
   // Upload to S3 using the file ID as the key
   const uploadCommand = new PutObjectCommand({
-    Bucket: BUCKET_NAME,
+    Bucket: env.S3_BUCKET_NAME,
     Key: fileRecord.id,
     Body: upload.buffer,
     ContentType: upload.mimeType,
@@ -106,7 +107,7 @@ export async function createDownloadUrl(
   }
 
   const command = new GetObjectCommand({
-    Bucket: BUCKET_NAME,
+    Bucket: env.S3_BUCKET_NAME,
     Key: fileId,
     ResponseContentDisposition: `attachment; filename="${fileRecord.filename}"`,
   });
@@ -131,7 +132,7 @@ export async function deleteFile(fileId: string): Promise<void> {
 
   // Delete from S3
   const deleteCommand = new DeleteObjectCommand({
-    Bucket: BUCKET_NAME,
+    Bucket: env.S3_BUCKET_NAME,
     Key: fileId,
   });
 

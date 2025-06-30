@@ -3,7 +3,7 @@ import { createTRPCNext } from '@trpc/next';
 import type { AppRouter } from '../server/routers/_app';
 import { getBaseUrl } from './getBaseUrl';
 
-export const trpc = createTRPCNext<AppRouter>({
+export const api = createTRPCNext<AppRouter>({
   config() {
     return {
       links: [

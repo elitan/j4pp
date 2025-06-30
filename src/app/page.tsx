@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { FileUpload } from '@/components/file-upload';
 
 export default function Home() {
   // tRPC queries
@@ -104,6 +105,19 @@ export default function Home() {
               )}
             </CardContent>
           </Card>
+        </div>
+
+        {/* File Upload Demo */}
+        <div className='mb-16'>
+          <div className='mb-6 text-center'>
+            <h2 className='text-foreground mb-2 text-2xl font-bold'>
+              File Upload Demo
+            </h2>
+            <p className='text-muted-foreground text-sm'>
+              Upload files to AWS S3 using tRPC and our files library
+            </p>
+          </div>
+          <FileUpload />
         </div>
 
         {/* Quick Start */}

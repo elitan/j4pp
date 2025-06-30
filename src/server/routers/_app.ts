@@ -1,7 +1,11 @@
 import { z } from 'zod';
 import { publicProcedure, protectedProcedure, router } from '../trpc';
+import { filesRouter } from './files';
 
 export const appRouter = router({
+  // File operations
+  files: filesRouter,
+
   getPublic: publicProcedure.query(() => {
     return {
       message: 'This is public data - anyone can see this!',
