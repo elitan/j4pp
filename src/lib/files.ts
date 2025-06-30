@@ -34,7 +34,6 @@ export type FileRecord = Selectable<Files>;
 
 /**
  * Upload a file to S3 and create database record
- * This is the main upload method - all files go through the backend
  */
 export async function uploadFile(upload: FileUpload) {
   // First create the database record to get the UUID

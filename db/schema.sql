@@ -6,8 +6,8 @@ create table files (
   mime_type text not null,
   size bigint not null,
   status text not null default 'uploading',
-  created_at timestamp with time zone default now(),
-  updated_at timestamp with time zone default now(),
+  created_at timestamptz default now(),
+  updated_at timestamptz default now(),
   etag text,
   updated_by_user_id integer references users (id) on delete set null,
   metadata jsonb
