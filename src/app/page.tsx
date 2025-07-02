@@ -31,7 +31,7 @@ export default function Home() {
             Fast starter template optimized for rapid AI-first development
           </p>
           <p className='text-muted-foreground text-sm'>
-            Type-safe from DB to frontend
+            Type-safe from database to frontend
           </p>
         </div>
 
@@ -114,7 +114,7 @@ export default function Home() {
               File Upload Demo
             </h2>
             <p className='text-muted-foreground text-sm'>
-              Upload files to AWS S3 using tRPC and our files library
+              Upload files to S3 using tRPC and our files library
             </p>
           </div>
           <FileUpload />
