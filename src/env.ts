@@ -5,7 +5,7 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.string().min(1),
     DATABASE_URL: z.string().url(),
-    S3_ENDPOINT: z.string().url(),
+    S3_ENDPOINT: z.string().url().default('http://tmp'),
     S3_REGION: z.string().min(1).default('auto'), // use 'local' using minio
     S3_ACCESS_KEY_ID: z.string().min(1).default('tmp'),
     S3_SECRET_ACCESS_KEY: z.string().min(1).default('tmp'),

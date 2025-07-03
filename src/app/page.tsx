@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { FileUpload } from '@/components/file-upload';
+import { TodoList } from '@/components/todo-list';
 
 export default function Home() {
   // tRPC queries
@@ -105,6 +106,19 @@ export default function Home() {
               )}
             </CardContent>
           </Card>
+        </div>
+
+        {/* Todo List */}
+        <div className='mb-16'>
+          <div className='mb-6 text-center'>
+            <h2 className='text-foreground mb-2 text-2xl font-bold'>
+              Todo List
+            </h2>
+            <p className='text-muted-foreground text-sm'>
+              Manage your todos with tRPC and authentication
+            </p>
+          </div>
+          <TodoList />
         </div>
 
         {/* File Upload Demo */}

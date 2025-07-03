@@ -38,6 +38,15 @@ export interface Files {
   updatedByUserId: number | null;
 }
 
+export interface Todos {
+  completed: Generated<boolean>;
+  createdAt: Generated<Timestamp | null>;
+  id: Generated<number>;
+  title: string;
+  updatedAt: Generated<Timestamp | null>;
+  userId: number;
+}
+
 export interface Users {
   clerkUserId: string | null;
   id: Generated<number>;
@@ -45,5 +54,6 @@ export interface Users {
 
 export interface DB {
   files: Files;
+  todos: Todos;
   users: Users;
 }

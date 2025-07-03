@@ -1,10 +1,14 @@
 import { z } from 'zod';
 import { publicProcedure, protectedProcedure, router } from '../trpc';
 import { filesRouter } from './files';
+import { todosRouter } from './todos';
 
 export const appRouter = router({
   // File operations
   files: filesRouter,
+
+  // Todo operations
+  todos: todosRouter,
 
   getPublic: publicProcedure.query(() => {
     return {
