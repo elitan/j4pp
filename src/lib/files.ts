@@ -26,7 +26,7 @@ export interface FileUpload {
   mimeType: string;
   size: number;
   buffer: Buffer;
-  userId: number;
+  userId: string;
 }
 
 // Use the generated Files type for selected records

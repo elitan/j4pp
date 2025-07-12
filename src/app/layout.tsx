@@ -4,13 +4,8 @@ import './globals.css';
 import { TRPCProvider } from '@/components/providers';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ModeToggle } from '@/components/mode-toggle';
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs';
+import { AuthProvider } from '@/components/auth/auth-provider';
+import { AuthButton } from '@/components/auth/auth-button';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,11 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        cssLayerName: 'clerk',
-      }}
-    >
+    <AuthProvider>
       <html lang='en' suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -50,17 +41,12 @@ export default function RootLayout({
           >
             <header className='flex h-16 items-center justify-end gap-4 p-4'>
               <ModeToggle />
-              <SignedOut>
-                <SignInButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
+              <AuthButton />
             </header>
             <TRPCProvider>{children}</TRPCProvider>
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </AuthProvider>
   );
 }

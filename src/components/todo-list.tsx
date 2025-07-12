@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useUser } from '@clerk/nextjs';
+import { useSession } from '@/lib/auth-client';
 import { api } from '@/components/providers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,8 +9,9 @@ import { Badge } from '@/components/ui/badge';
 import { Trash2, Plus, CheckCircle, Circle } from 'lucide-react';
 
 export function TodoList() {
-  const { isSignedIn, isLoaded } = useUser();
+  const { data: session, isPending } = useSession();
   const [newTodo, setNewTodo] = useState('');
+  const isSignedIn = !!session?.user;
 
   // tRPC queries and mutations
   const todosQuery = api.todos.list.useQuery(undefined, {
@@ -57,7 +58,7 @@ export function TodoList() {
   }
 
   // Show loading state while auth is loading
-  if (!isLoaded) {
+  if (isPending) {
     return (
       <Card>
         <CardHeader>
