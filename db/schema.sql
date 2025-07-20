@@ -11,7 +11,7 @@ create table "user" (
 
 create table session (
   id text primary key,
-  "userId" text not null references "user"(id) on delete cascade,
+  "userId" text not null references "user" (id) on delete cascade,
   token text unique not null,
   "expiresAt" timestamptz not null,
   "ipAddress" text,
@@ -22,7 +22,7 @@ create table session (
 
 create table account (
   id text primary key,
-  "userId" text not null references "user"(id) on delete cascade,
+  "userId" text not null references "user" (id) on delete cascade,
   "accountId" text not null,
   "providerId" text not null,
   "accessToken" text,
@@ -45,6 +45,7 @@ create table verification (
   "updatedAt" timestamptz default now()
 );
 
+-- File storage
 create table files (
   id uuid primary key default gen_random_uuid (),
   filename text not null,
@@ -58,6 +59,7 @@ create table files (
   metadata jsonb
 );
 
+-- Demo Todo List
 create table todos (
   id serial primary key,
   user_id text not null references "user" (id) on delete cascade,
@@ -65,35 +67,4 @@ create table todos (
   completed boolean not null default false,
   created_at timestamptz default now(),
   updated_at timestamptz default now()
-);
-
--- CRM Tables
-CREATE TABLE companies (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    website TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE TABLE contacts (
-    id SERIAL PRIMARY KEY,
-    first_name TEXT,
-    last_name TEXT,
-    email TEXT UNIQUE,
-    phone TEXT,
-    company_id INTEGER REFERENCES companies(id) ON DELETE SET NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE TABLE deals (
-    id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
-    value DECIMAL(10, 2),
-    stage TEXT NOT NULL DEFAULT 'lead', -- e.g., lead, qualified, proposal, won, lost
-    contact_id INTEGER REFERENCES contacts(id) ON DELETE CASCADE,
-    company_id INTEGER REFERENCES companies(id) ON DELETE CASCADE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
 );

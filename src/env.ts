@@ -12,6 +12,8 @@ export const env = createEnv({
     S3_BUCKET_NAME: z.string().min(1).default('tmp'),
     VERCEL_URL: z.string().optional(),
     PORT: z.string().optional(),
+    BETTER_AUTH_URL: z.string().url(),
+    BETTER_AUTH_SECRET: z.string().min(1),
   },
   client: {
     // Nothing here just yet
@@ -26,5 +28,7 @@ export const env = createEnv({
     S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
     VERCEL_URL: process.env.VERCEL_URL,
     PORT: process.env.PORT,
+    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
+    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
   },
 });
