@@ -5,31 +5,11 @@ import { db } from '@/lib/db';
 export const todosRouter = router({
   // Get all todos for the current user
   list: protectedProcedure.query(async ({ ctx }) => {
-    // First, get or create the user in our database
-    let user = await db
-      .selectFrom('users')
-      .selectAll()
-      .where('clerkUserId', '=', ctx.userId)
-      .executeTakeFirst();
-
-    if (!user) {
-      // Create user if they don't exist
-      user = await db
-        .insertInto('users')
-        .values({
-          clerkUserId: ctx.userId,
-        })
-        .returning(['id', 'clerkUserId'])
-        .executeTakeFirstOrThrow();
-
-      return [];
-    }
-
-    // Get todos for the user
+    // With Better Auth, ctx.userId is the actual user ID from the user table
     const todos = await db
       .selectFrom('todos')
       .selectAll()
-      .where('userId', '=', user.id)
+      .where('userId', '=', ctx.userId!)
       .orderBy('createdAt', 'desc')
       .execute();
 
@@ -44,29 +24,11 @@ export const todosRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      // Get or create the user in our database
-      let user = await db
-        .selectFrom('users')
-        .selectAll()
-        .where('clerkUserId', '=', ctx.userId)
-        .executeTakeFirst();
-
-      if (!user) {
-        // Create user if they don't exist
-        user = await db
-          .insertInto('users')
-          .values({
-            clerkUserId: ctx.userId,
-          })
-          .returning(['id', 'clerkUserId'])
-          .executeTakeFirstOrThrow();
-      }
-
       // Create the todo
       const todo = await db
         .insertInto('todos')
         .values({
-          userId: user.id,
+          userId: ctx.userId!,
           title: input.title,
         })
         .returning(['id', 'title', 'completed', 'createdAt'])
@@ -83,22 +45,11 @@ export const todosRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      // Get the user in our database
-      const user = await db
-        .selectFrom('users')
-        .selectAll()
-        .where('clerkUserId', '=', ctx.userId)
-        .executeTakeFirst();
-
-      if (!user) {
-        throw new Error('User not found');
-      }
-
       // Delete the todo (only if it belongs to the user)
       const result = await db
         .deleteFrom('todos')
         .where('id', '=', input.id)
-        .where('userId', '=', user.id)
+        .where('userId', '=', ctx.userId!)
         .executeTakeFirst();
 
       if (result.numDeletedRows === BigInt(0)) {
@@ -116,23 +67,12 @@ export const todosRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      // Get the user in our database
-      const user = await db
-        .selectFrom('users')
-        .selectAll()
-        .where('clerkUserId', '=', ctx.userId)
-        .executeTakeFirst();
-
-      if (!user) {
-        throw new Error('User not found');
-      }
-
       // Get the current todo
       const todo = await db
         .selectFrom('todos')
         .selectAll()
         .where('id', '=', input.id)
-        .where('userId', '=', user.id)
+        .where('userId', '=', ctx.userId!)
         .executeTakeFirst();
 
       if (!todo) {
@@ -147,7 +87,7 @@ export const todosRouter = router({
           updatedAt: new Date(),
         })
         .where('id', '=', input.id)
-        .where('userId', '=', user.id)
+        .where('userId', '=', ctx.userId!)
         .returning(['id', 'title', 'completed', 'createdAt'])
         .executeTakeFirstOrThrow();
 

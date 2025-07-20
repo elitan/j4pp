@@ -23,7 +23,55 @@ export type JsonPrimitive = boolean | number | string | null;
 
 export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
 
+export type Numeric = ColumnType<string, number | string, number | string>;
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+
+export interface Account {
+  accessToken: string | null;
+  accessTokenExpiresAt: Timestamp | null;
+  accountId: string;
+  createdAt: Generated<Timestamp | null>;
+  id: string;
+  idToken: string | null;
+  password: string | null;
+  providerId: string;
+  refreshToken: string | null;
+  refreshTokenExpiresAt: Timestamp | null;
+  scope: string | null;
+  updatedAt: Generated<Timestamp | null>;
+  userId: string;
+}
+
+export interface Companies {
+  createdAt: Generated<Timestamp | null>;
+  id: Generated<number>;
+  name: string;
+  updatedAt: Generated<Timestamp | null>;
+  website: string | null;
+}
+
+export interface Contacts {
+  companyId: number | null;
+  createdAt: Generated<Timestamp | null>;
+  email: string | null;
+  firstName: string | null;
+  id: Generated<number>;
+  lastName: string | null;
+  phone: string | null;
+  updatedAt: Generated<Timestamp | null>;
+}
+
+export interface Deals {
+  companyId: number | null;
+  contactId: number | null;
+  createdAt: Generated<Timestamp | null>;
+  id: Generated<number>;
+  stage: Generated<string>;
+  title: string;
+  updatedAt: Generated<Timestamp | null>;
+  value: Numeric | null;
+}
 
 export interface Files {
   createdAt: Generated<Timestamp | null>;
@@ -35,7 +83,18 @@ export interface Files {
   size: Int8;
   status: Generated<string>;
   updatedAt: Generated<Timestamp | null>;
-  updatedByUserId: number | null;
+  updatedByUserId: string | null;
+}
+
+export interface Session {
+  createdAt: Generated<Timestamp | null>;
+  expiresAt: Timestamp;
+  id: string;
+  ipAddress: string | null;
+  token: string;
+  updatedAt: Generated<Timestamp | null>;
+  userAgent: string | null;
+  userId: string;
 }
 
 export interface Todos {
@@ -44,16 +103,36 @@ export interface Todos {
   id: Generated<number>;
   title: string;
   updatedAt: Generated<Timestamp | null>;
-  userId: number;
+  userId: string;
 }
 
-export interface Users {
-  clerkUserId: string | null;
-  id: Generated<number>;
+export interface User {
+  createdAt: Generated<Timestamp | null>;
+  email: string | null;
+  emailVerified: Generated<boolean | null>;
+  id: string;
+  image: string | null;
+  name: string | null;
+  updatedAt: Generated<Timestamp | null>;
+}
+
+export interface Verification {
+  createdAt: Generated<Timestamp | null>;
+  expiresAt: Timestamp;
+  id: string;
+  identifier: string;
+  updatedAt: Generated<Timestamp | null>;
+  value: string;
 }
 
 export interface DB {
+  account: Account;
+  companies: Companies;
+  contacts: Contacts;
+  deals: Deals;
   files: Files;
+  session: Session;
   todos: Todos;
-  users: Users;
+  user: User;
+  verification: Verification;
 }

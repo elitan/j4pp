@@ -1,7 +1,9 @@
 #!/usr/bin/env bun
 
 import { existsSync } from 'fs';
+import { appendFileSync } from 'fs';
 import { $ } from 'bun';
+import { randomBytes } from 'crypto';
 
 async function setup() {
   console.log('🚀 Setting up j4pp...');
@@ -18,6 +20,19 @@ async function setup() {
     console.log('🎯 Creating new Neon database...');
     await $`bunx neondb -y`;
     console.log('✅ Database created successfully!');
+
+    // Add Better Auth environment variables
+    console.log('🔐 Adding Better Auth configuration...');
+    const betterAuthSecret = randomBytes(32).toString('hex');
+    const betterAuthConfig = `
+# Better Auth
+BETTER_AUTH_SECRET=${betterAuthSecret}
+BETTER_AUTH_URL=http://localhost:3000
+NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:3000
+`;
+
+    appendFileSync('.env', betterAuthConfig);
+    console.log('✅ Better Auth configuration added!');
 
     // Set up the database schema and generate types
     console.log('🏗️  Applying database schema and generating types...');

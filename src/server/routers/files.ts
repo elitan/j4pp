@@ -18,25 +18,8 @@ export const filesRouter = router({
         throw new Error('User not authenticated');
       }
 
-      // First, ensure the user exists in our database
-      let user = await db
-        .selectFrom('users')
-        .where('clerkUserId', '=', ctx.userId)
-        .select('id')
-        .executeTakeFirst();
-
-      if (!user) {
-        // Create user if they don't exist
-        user = await db
-          .insertInto('users')
-          .values({ clerkUserId: ctx.userId })
-          .returning('id')
-          .executeTakeFirst();
-      }
-
-      if (!user) {
-        throw new Error('Failed to create or find user');
-      }
+      // With Better Auth, the user ID from context is the actual user ID
+      // No need to look up or create a mapping like with Clerk
 
       // Decode base64 data to buffer
       const buffer = Buffer.from(input.data, 'base64');
@@ -52,7 +35,7 @@ export const filesRouter = router({
         mimeType: input.mimeType,
         size: input.size,
         buffer,
-        userId: user.id,
+        userId: ctx.userId,
       });
 
       return {
@@ -101,21 +84,10 @@ export const filesRouter = router({
       throw new Error('User not authenticated');
     }
 
-    // Get user from database
-    const user = await db
-      .selectFrom('users')
-      .where('clerkUserId', '=', ctx.userId)
-      .select('id')
-      .executeTakeFirst();
-
-    if (!user) {
-      return { files: [] };
-    }
-
     // Get user's files
     const files = await db
       .selectFrom('files')
-      .where('updatedByUserId', '=', user.id)
+      .where('updatedByUserId', '=', ctx.userId)
       .where('status', '=', 'uploaded')
       .selectAll()
       .orderBy('createdAt', 'desc')
