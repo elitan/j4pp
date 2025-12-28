@@ -8,15 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:test": "pgterra",
-    "db:generate": "kysely-codegen",
-    "db:check": "atlas schema apply --env local --dry-run",
-    "db:check:stage": "atlas schema apply --env stage --dry-run",
-    "db:check:prod": "atlas schema apply --env prod --dry-run",
-    "db:push": "atlas schema apply --env local --auto-approve",
-    "db:push:stage": "atlas schema apply --env stage --auto-approve",
-    "db:push:prod": "atlas schema apply --env prod --auto-approve",
-    "db:setup": "bun run db:push && bun run db:generate"
+    "db:migrate": "pgterra apply -f db/schema.sql --auto-approve",
+    "db:generate": "kysely-gen --out ./src/lib/db-types.ts --camel-case"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.839.0",
@@ -34,7 +27,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "kysely": "^0.28.2",
-    "lucide": "^0.525.0",
     "lucide-react": "^0.525.0",
     "next": "15.3.4",
     "next-themes": "^0.4.6",
@@ -42,8 +34,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.3.1",
-    "zod": "^3.25.67",
-    "pgterra": "link:pgterra"
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@better-auth/cli": "^1.2.12",
@@ -57,7 +48,9 @@
     "@typescript/native-preview": "latest",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "kysely-codegen": "^0.18.5",
+    "get-db": "^0.11.0",
+    "kysely-gen": "^0.5.0",
+    "pgterra": "^0.2.5",
     "prettier": "^3.1.0",
     "prettier-plugin-sql": "^0.18.1",
     "prettier-plugin-tailwindcss": "^0.5.7",
