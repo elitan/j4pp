@@ -6,6 +6,18 @@ export const auth = betterAuth({
   database: new Pool({
     connectionString: env.DATABASE_URL,
   }),
+  user: {
+    modelName: 'users',
+  },
+  session: {
+    modelName: 'auth_sessions',
+  },
+  account: {
+    modelName: 'auth_accounts',
+  },
+  verification: {
+    modelName: 'auth_verifications',
+  },
   secret: env.BETTER_AUTH_SECRET,
   baseURL: env.BETTER_AUTH_URL,
   emailAndPassword: {

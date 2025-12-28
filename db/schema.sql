@@ -1,5 +1,5 @@
 -- Better Auth tables
-create table "user" (
+create table users (
   id text primary key,
   name text,
   email text,
@@ -9,10 +9,11 @@ create table "user" (
   "updatedAt" timestamptz default now()
 );
 
-create table session (
+create table auth_sessions (
   id text primary key,
-  "userId" text not null references "user" (id) on delete cascade,
-  token text unique not null,
+  "userId" text not null references users (id) on delete cascade,
+  token text not null,
+  constraint auth_sessions_token_unique unique (token),
   "expiresAt" timestamptz not null,
   "ipAddress" text,
   "userAgent" text,
@@ -20,9 +21,9 @@ create table session (
   "updatedAt" timestamptz default now()
 );
 
-create table account (
+create table auth_accounts (
   id text primary key,
-  "userId" text not null references "user" (id) on delete cascade,
+  "userId" text not null references users (id) on delete cascade,
   "accountId" text not null,
   "providerId" text not null,
   "accessToken" text,
@@ -36,7 +37,7 @@ create table account (
   "updatedAt" timestamptz default now()
 );
 
-create table verification (
+create table auth_verifications (
   id text primary key,
   identifier text not null,
   value text not null,
@@ -55,14 +56,14 @@ create table files (
   created_at timestamptz default now(),
   updated_at timestamptz default now(),
   etag text,
-  updated_by_user_id text references "user" (id) on delete set null,
+  updated_by_user_id text references users (id) on delete set null,
   metadata jsonb
 );
 
 -- Demo Todo List
 create table todos (
   id serial primary key,
-  user_id text not null references "user" (id) on delete cascade,
+  user_id text not null references users (id) on delete cascade,
   title text not null,
   completed boolean not null default false,
   created_at timestamptz default now(),

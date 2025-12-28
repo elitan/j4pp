@@ -22,7 +22,7 @@ export interface IPostgresInterval {
   milliseconds?: number;
 }
 
-export interface Account {
+export interface AuthAccount {
   id: string;
   userId: string;
   accountId: string;
@@ -38,6 +38,26 @@ export interface Account {
   updatedAt: ColumnType<Date, Date | string, Date | string> | null;
 }
 
+export interface AuthSession {
+  id: string;
+  userId: string;
+  token: string;
+  expiresAt: ColumnType<Date, Date | string, Date | string>;
+  ipAddress: string | null;
+  userAgent: string | null;
+  createdAt: ColumnType<Date, Date | string, Date | string> | null;
+  updatedAt: ColumnType<Date, Date | string, Date | string> | null;
+}
+
+export interface AuthVerification {
+  id: string;
+  identifier: string;
+  value: string;
+  expiresAt: ColumnType<Date, Date | string, Date | string>;
+  createdAt: ColumnType<Date, Date | string, Date | string> | null;
+  updatedAt: ColumnType<Date, Date | string, Date | string> | null;
+}
+
 export interface File {
   id: string;
   filename: string;
@@ -49,17 +69,6 @@ export interface File {
   etag: string | null;
   updatedByUserId: string | null;
   metadata: JsonValue | null;
-}
-
-export interface Session {
-  id: string;
-  userId: string;
-  token: string;
-  expiresAt: ColumnType<Date, Date | string, Date | string>;
-  ipAddress: string | null;
-  userAgent: string | null;
-  createdAt: ColumnType<Date, Date | string, Date | string> | null;
-  updatedAt: ColumnType<Date, Date | string, Date | string> | null;
 }
 
 export interface Todo {
@@ -81,20 +90,11 @@ export interface User {
   updatedAt: ColumnType<Date, Date | string, Date | string> | null;
 }
 
-export interface Verification {
-  id: string;
-  identifier: string;
-  value: string;
-  expiresAt: ColumnType<Date, Date | string, Date | string>;
-  createdAt: ColumnType<Date, Date | string, Date | string> | null;
-  updatedAt: ColumnType<Date, Date | string, Date | string> | null;
-}
-
 export interface DB {
-  account: Account;
+  authAccounts: AuthAccount;
+  authSessions: AuthSession;
+  authVerifications: AuthVerification;
   files: File;
-  session: Session;
   todos: Todo;
-  user: User;
-  verification: Verification;
+  users: User;
 }

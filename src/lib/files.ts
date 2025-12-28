@@ -1,6 +1,6 @@
 import { env } from '@/env';
 import { db } from '@/lib/db';
-import type { Files } from '@/lib/db-types';
+import type { File } from '@/lib/db-types';
 import type { Selectable } from 'kysely';
 import {
   S3Client,
@@ -29,8 +29,7 @@ export interface FileUpload {
   userId: string;
 }
 
-// Use the generated Files type for selected records
-export type FileRecord = Selectable<Files>;
+export type FileRecord = Selectable<File>;
 
 /**
  * Upload a file to S3 and create database record
@@ -40,6 +39,7 @@ export async function uploadFile(upload: FileUpload) {
   const fileRecord = await db
     .insertInto('files')
     .values({
+      id: crypto.randomUUID(),
       filename: upload.filename,
       mimeType: upload.mimeType,
       size: upload.size,

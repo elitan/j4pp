@@ -30,6 +30,7 @@ export const todosRouter = router({
         .values({
           userId: ctx.userId!,
           title: input.title,
+          completed: false,
         })
         .returning(['id', 'title', 'completed', 'createdAt'])
         .executeTakeFirstOrThrow();
