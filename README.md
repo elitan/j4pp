@@ -5,9 +5,9 @@
 ## Features
 
 - **Type-safe from DB to frontend** - Database → tRPC → React with auto-generated types
-- **Declarative schema** - Atlas manages migrations from `db/schema.sql`
+- **Declarative schema** - pgterra manages migrations from `db/schema.sql`
 - **Zero-config setup** - One command creates DB, applies schema, generates types
-- **Modern stack** - Next.js 15, tRPC, Kysely, TypeScript, Tailwind
+- **Modern stack** - Next.js 16, tRPC, Kysely, TypeScript, Tailwind
 
 ## Philosophy
 
@@ -17,7 +17,7 @@ This template is built on a core belief: **modern development should be fast, ty
 
 - **tRPC over REST/GraphQL:** tRPC provides end-to-end type-safety without the need for code generation or schemas. Your API becomes as easy to consume as calling a function, with full autocompletion and type-checking from the backend to the frontend. This dramatically speeds up feature development.
 
-- **Atlas for Declarative Migrations:** Managing database schemas should be simple. With Atlas, you define your desired schema in a single `schema.sql` file. Atlas intelligently figures out the migration plan, making schema changes trivial and predictable. This is especially powerful for AI-driven development, where an agent can safely propose and apply schema changes.
+- **pgterra for Declarative Migrations:** Managing database schemas should be simple. With pgterra, you define your desired schema in a single `schema.sql` file. pgterra intelligently figures out the migration plan, making schema changes trivial and predictable. This is especially powerful for AI-driven development, where an agent can safely propose and apply schema changes.
 
 ## Quick Start
 
@@ -32,19 +32,19 @@ bun run dev
 ## Stack
 
 - **Database**: PostgreSQL (Neon)
-- **Schema**: Atlas (declarative migrations)
+- **Schema**: pgterra (declarative migrations)
 - **Backend**: Next.js API routes + tRPC
-- **Frontend**: React 19 + Next.js 15
-- **Types**: Auto-generated with Kysely
+- **Frontend**: React 19 + Next.js 16
+- **Types**: Auto-generated with kysely-gen
 - **Auth**: Better Auth
 
 ## Type Flow
 
 ```
 Database Schema (schema.sql)
-    ↓ Atlas applies
+    ↓ pgterra applies
 PostgreSQL
-    ↓ Kysely generates
+    ↓ kysely-gen generates
 TypeScript types
     ↓ tRPC uses
 Type-safe API
@@ -57,15 +57,13 @@ Frontend components
 ```bash
 bun run setup        # Full setup (DB + schema + types)
 bun run dev          # Start development server
-bun run db:setup     # Apply schema + generate types
-bun run db:push      # Apply schema to database
+bun run db:migrate   # Apply schema to database
 bun run db:generate  # Generate types from database
 ```
 
 ## Database Changes
 
 1. Edit `db/schema.sql`
-2. Run `bun run db:setup`
-3. Types are automatically updated across your app
+2. Run `bun run db:migrate`
+3. Run `bun run db:generate`
 
-The setup is optimized for AI tools - types flow automatically and the declarative schema makes database changes predictable and safe.
