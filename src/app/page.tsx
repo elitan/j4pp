@@ -1,6 +1,9 @@
 'use client';
 
+import { FileUpload } from '@/components/file-upload';
 import { api } from '@/components/providers';
+import { TodoList } from '@/components/todo-list';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -9,9 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { FileUpload } from '@/components/file-upload';
-import { TodoList } from '@/components/todo-list';
 
 export default function Home() {
   // tRPC queries
@@ -74,9 +74,7 @@ export default function Home() {
                 />
                 <CardTitle>Protected Data</CardTitle>
               </div>
-              <CardDescription>
-                Requires authentication
-              </CardDescription>
+              <CardDescription>Requires authentication</CardDescription>
             </CardHeader>
             <CardContent>
               <Button

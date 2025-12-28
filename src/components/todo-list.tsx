@@ -1,12 +1,12 @@
 'use client';
 
+import { CheckCircle, Circle, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import { useSession } from '@/lib/auth-client';
 import { api } from '@/components/providers';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Trash2, Plus, CheckCircle, Circle } from 'lucide-react';
+import { useSession } from '@/lib/auth-client';
 
 export function TodoList() {
   const { data: session, isPending } = useSession();
@@ -148,6 +148,7 @@ export function TodoList() {
               className='bg-card flex items-center gap-3 rounded-md border p-3'
             >
               <button
+                type='button'
                 onClick={() => handleToggleTodo(todo.id)}
                 className='text-muted-foreground hover:text-foreground flex-shrink-0 transition-colors'
                 disabled={toggleTodoMutation.isPending}
@@ -170,6 +171,7 @@ export function TodoList() {
               </span>
 
               <button
+                type='button'
                 onClick={() => handleDeleteTodo(todo.id)}
                 className='text-muted-foreground hover:text-destructive flex-shrink-0 transition-colors'
                 disabled={deleteTodoMutation.isPending}

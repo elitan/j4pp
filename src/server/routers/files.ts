@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { protectedProcedure, router } from '../trpc';
-import { uploadFile, createDownloadUrl, deleteFile } from '@/lib/files';
 import { db } from '@/lib/db';
+import { createDownloadUrl, deleteFile, uploadFile } from '@/lib/files';
+import { protectedProcedure, router } from '../trpc';
 
 export const filesRouter = router({
   upload: protectedProcedure
@@ -17,7 +17,6 @@ export const filesRouter = router({
       if (!ctx.userId) {
         throw new Error('User not authenticated');
       }
-
 
       // Decode base64 data to buffer
       const buffer = Buffer.from(input.data, 'base64');

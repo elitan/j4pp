@@ -1,6 +1,6 @@
-import { env } from "@/env";
 import { CamelCasePlugin, Kysely, PostgresDialect } from 'kysely';
 import { Pool } from 'pg';
+import { env } from '@/env';
 import type { DB } from './db-types';
 
 const globalForDb = globalThis as unknown as {

@@ -1,10 +1,10 @@
 'use client';
 
-import { getBaseUrl } from '@/utils/getBaseUrl';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import { useState } from 'react';
+import { getBaseUrl } from '@/utils/getBaseUrl';
 import type { AppRouter } from '../server/routers/_app';
 
 export const api = createTRPCReact<AppRouter>();

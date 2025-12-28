@@ -45,7 +45,7 @@ create table auth_verifications (
   updated_at timestamptz default now()
 );
 
--- File storage
+-- Application tables
 create table files (
   id uuid primary key default gen_random_uuid (),
   filename text not null,
@@ -56,10 +56,9 @@ create table files (
   updated_at timestamptz default now(),
   etag text,
   updated_by_user_id text references users (id) on delete set null,
-  metadata jsonb
+  metadata_hej jsonb
 );
 
--- Demo Todo List
 create table todos (
   id serial primary key,
   user_id text not null references users (id) on delete cascade,

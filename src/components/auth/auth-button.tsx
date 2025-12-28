@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession, signIn, signOut, signUp } from '@/lib/auth-client';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { signIn, signOut, signUp, useSession } from '@/lib/auth-client';
 
 export function AuthButton() {
   const { data: session, isPending } = useSession();

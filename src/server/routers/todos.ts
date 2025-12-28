@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { router, protectedProcedure } from '../trpc';
 import { db } from '@/lib/db';
+import { protectedProcedure, router } from '../trpc';
 
 export const todosRouter = router({
   // Get all todos for the current user
