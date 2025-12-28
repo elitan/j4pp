@@ -75,7 +75,7 @@ export default function Home() {
                 <CardTitle>Protected Data</CardTitle>
               </div>
               <CardDescription>
-                Requires authentication via Clerk
+                Requires authentication
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -156,8 +156,8 @@ export default function Home() {
         {/* Footer */}
         <div className='text-muted-foreground mt-16 text-center text-sm'>
           <p>
-            Next.js 15 • tRPC • Kysely • TypeScript • Tailwind • Clerk •
-            Postgres • Cursor • Bun • Shadcn/UI
+            Next.js 15 • tRPC • Kysely • TypeScript • Tailwind • Better Auth •
+            Postgres • Bun • Shadcn/UI
           </p>
         </div>
       </div>

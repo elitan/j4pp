@@ -18,8 +18,6 @@ export const filesRouter = router({
         throw new Error('User not authenticated');
       }
 
-      // With Better Auth, the user ID from context is the actual user ID
-      // No need to look up or create a mapping like with Clerk
 
       // Decode base64 data to buffer
       const buffer = Buffer.from(input.data, 'base64');

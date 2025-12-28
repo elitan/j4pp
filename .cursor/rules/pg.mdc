@@ -1,8 +1,0 @@
----
-description: 
-globs: 
-alwaysApply: false
----
-- Extract DATABASE_URL from .env file
-- Use psql to connect to the PostgreSQL database
-- If connection succeeds, proceed with database operations

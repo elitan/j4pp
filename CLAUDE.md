@@ -49,7 +49,7 @@ Frontend with full type safety
 - **Schema Management**: Atlas (declarative migrations from `db/schema.sql`)
 - **API**: tRPC for end-to-end type safety
 - **Frontend**: Next.js 15, React 19, TypeScript
-- **Authentication**: Clerk
+- **Authentication**: Better Auth
 - **Styling**: Tailwind CSS, Shadcn/UI components
 
 ## Database Development Workflow
@@ -70,18 +70,11 @@ Import `db` from `src/lib/db.ts` and use with generated types:
 import { db } from '@/lib/db';
 
 // Select operations
-const users = await db.selectFrom('users').selectAll().execute();
+const users = await db.selectFrom('user').selectAll().execute();
 const user = await db
-  .selectFrom('users')
+  .selectFrom('user')
   .where('id', '=', userId)
   .selectAll()
-  .executeTakeFirst();
-
-// Insert operations
-const newUser = await db
-  .insertInto('users')
-  .values({ clerk_user_id: clerkId })
-  .returningAll()
   .executeTakeFirst();
 ```
 
@@ -92,18 +85,16 @@ Create procedures in `src/server/routers/` and export from `src/server/routers/_
 ```typescript
 export const appRouter = router({
   getUsers: publicProcedure.query(async () => {
-    return await db.selectFrom('users').selectAll().execute();
+    return await db.selectFrom('user').selectAll().execute();
   }),
-  
-  createUser: protectedProcedure
-    .input(z.object({ clerkUserId: z.string() }))
-    .mutation(async ({ input }) => {
-      return await db
-        .insertInto('users')
-        .values({ clerk_user_id: input.clerkUserId })
-        .returningAll()
-        .executeTakeFirst();
-    }),
+
+  getMe: protectedProcedure.query(async ({ ctx }) => {
+    return await db
+      .selectFrom('user')
+      .where('id', '=', ctx.userId)
+      .selectAll()
+      .executeTakeFirst();
+  }),
 });
 ```
 
@@ -111,16 +102,18 @@ export const appRouter = router({
 
 - Use tRPC hooks: `api.procedureName.useQuery()` or `api.procedureName.useMutation()`
 - Functional components (not arrow functions)
-- Clerk components for authentication (`<SignedIn>`, `<UserButton>`)
+- Better Auth hooks for authentication (`useSession`, `signIn`, `signOut`)
 - Tailwind CSS for styling
 
 ## Current Database Schema
 
 The database includes tables for:
-- `users` - User management with Clerk integration
+- `user` - User management (Better Auth)
+- `session` - Session management (Better Auth)
+- `account` - OAuth accounts (Better Auth)
+- `verification` - Email verification (Better Auth)
 - `files` - File upload system with S3 integration
 - `todos` - Todo list functionality
-- `companies`, `contacts`, `deals` - CRM functionality
 
 ## Environment Configuration
 
@@ -131,8 +124,9 @@ Atlas uses multiple environments defined in `atlas.hcl`:
 
 Required environment variables:
 - `DATABASE_URL`
-- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` 
-- `CLERK_SECRET_KEY`
+- `BETTER_AUTH_SECRET`
+- `BETTER_AUTH_URL`
+- `NEXT_PUBLIC_BETTER_AUTH_URL`
 
 ## Development Guidelines
 
