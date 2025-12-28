@@ -3,47 +3,46 @@ create table users (
   id text primary key,
   name text,
   email text,
-  "emailVerified" boolean default false,
+  email_verified boolean default false,
   image text,
-  "createdAt" timestamptz default now(),
-  "updatedAt" timestamptz default now()
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
 );
 
 create table auth_sessions (
   id text primary key,
-  "userId" text not null references users (id) on delete cascade,
-  token text not null,
-  constraint auth_sessions_token_unique unique (token),
-  "expiresAt" timestamptz not null,
-  "ipAddress" text,
-  "userAgent" text,
-  "createdAt" timestamptz default now(),
-  "updatedAt" timestamptz default now()
+  user_id text not null references users (id) on delete cascade,
+  token text not null unique,
+  expires_at timestamptz not null,
+  ip_address text,
+  user_agent text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
 );
 
 create table auth_accounts (
   id text primary key,
-  "userId" text not null references users (id) on delete cascade,
-  "accountId" text not null,
-  "providerId" text not null,
-  "accessToken" text,
-  "refreshToken" text,
-  "accessTokenExpiresAt" timestamptz,
-  "refreshTokenExpiresAt" timestamptz,
+  user_id text not null references users (id) on delete cascade,
+  account_id text not null,
+  provider_id text not null,
+  access_token text,
+  refresh_token text,
+  access_token_expires_at timestamptz,
+  refresh_token_expires_at timestamptz,
   scope text,
-  "idToken" text,
+  id_token text,
   password text,
-  "createdAt" timestamptz default now(),
-  "updatedAt" timestamptz default now()
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
 );
 
 create table auth_verifications (
   id text primary key,
   identifier text not null,
   value text not null,
-  "expiresAt" timestamptz not null,
-  "createdAt" timestamptz default now(),
-  "updatedAt" timestamptz default now()
+  expires_at timestamptz not null,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
 );
 
 -- File storage
